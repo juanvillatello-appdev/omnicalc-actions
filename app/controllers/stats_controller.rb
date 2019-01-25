@@ -7,36 +7,95 @@ class StatsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer"
+    @sorted_numbers = @numbers.sort
 
-    @count = "Replace this string with your answer"
+    @count = @numbers.count
+    
+    a=@numbers[0]
+  
+      @numbers.each do |num|       
+        if  num<a           
+        a=num
+        end
+      end
+    
 
-    @minimum = "Replace this string with your answer"
+    @minimum = a
 
-    @maximum = "Replace this string with your answer"
+      b=@numbers[0]
+  
+      @numbers.each do |num|       
+       if  num>b           
+        b=num
+        end
+      end
 
-    @range = "Replace this string with your answer"
+
+    @maximum = b
+
+    @range = b-a
 
     # Median
     # ======
 
-    @median = "Replace this string with your answer"
+    numb=@numbers.sort
+    median=0
+  
+    if numb.count%2==0
+      lower=numb[(numb.count/2)-1]
+      upper=numb[(numb.count/2)]
+      median=(lower+upper)/2.to_f
+    else
+     median=numb[numb.count/2]
+    end
 
-    @sum = "Replace this string with your answer"
 
-    @mean = "Replace this string with your answer"
+    @median = median
+    
+     sum=0
+  
+      @numbers.each do |num|       
+      sum=sum+num
+      end
+
+    @sum = sum
+
+    mean=sum/@numbers.count
+    
+    @mean = mean
 
     # Variance
     # ========
+    var=0
+    
+    @numbers.each do |nums|
+    var=var+((nums-mean)**2)
+    end
+ 
+    variance=var/(@numbers.count)
 
-    @variance = "Replace this string with your answer"
+    @variance = variance
 
-    @standard_deviation = "Replace this string with your answer"
+    @standard_deviation = Math.sqrt(variance)
 
     # Mode
     # ====
 
-    @mode = "Replace this string with your answer"
+    c=[]
+    count=0
+  
+    @numbers.each do |num|  
+      count_c=@numbers.count(num)
+      if    count_c>=count && (!c.include? num)
+        if count_c!=count 
+          c=[]
+        end  
+        count=count_c
+        c.push(num)
+      end
+    end
+
+    @mode = c
 
     # ================================================================================
     # Your code goes above.
